@@ -5,7 +5,7 @@ grunt.registerTask()
 	grunt.initConfig({
   		concat: {
     		js: {
-	      		src: ['js/app.js'],
+	      		src: ['js/main.js'],
 	      		dest: 'build/js/scripts.js',
     		},
     		css: {
