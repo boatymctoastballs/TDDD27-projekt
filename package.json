@@ -2,10 +2,7 @@
   "name": "tddd27-projekt",
   "version": "1.0.0",
   "description": "webb app",
-  "main": "js/app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/boatymctoastballs/TDDD27-projekt.git"
@@ -19,7 +16,8 @@
   "dependencies": {
     "grunt": "^1.0.1",
     "hjs": "0.0.6",
-    "less-middleware": "2.2.0"
+    "less-middleware": "2.2.0",
+    "debug": "2.6.3"
   },
   "devDependencies": {
     "grunt-contrib-concat": "^1.0.1",

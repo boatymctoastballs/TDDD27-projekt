@@ -1,5 +1,5 @@
-var myApp = angular.module('myApp', ['ui.bootstrap']);
+var myApp = angular.module('app', ['ui.bootstrap']);
 
-myApp.controller('MainController', function {
-
+myApp.controller('meetupsController', function($scope) {
+	$scope.meetupsCount = 10;
 });

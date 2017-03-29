@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap/bootstrap.min.css'/>
+    <link rel='stylesheet' href='/stylesheets/main.css'/>
+  </head>
+  <body>
+  	<div ng-controller="meetupsController">
+  		<div ui-view></div>
+  		<h1>{{ title }}</h1>
+    	<p>I am {{ age }} years old and there are {{meetupsCount}} meetings. {{hehe}}</p>
+  	</div>    
+  </body>
+  <script type="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+  <script type="text/javascript" src="/javascripts/main.js"></script>
+</html>
