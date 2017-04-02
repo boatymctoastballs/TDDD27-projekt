@@ -5,15 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongo = require('mongoose');
 var index = require('./routes/index');
 //var users = require('./routes/users');
 
 var app = express();
-//var meetupsController = require('./public/javascripts/main.js')
-
-
 
 // view engine setup
+app.locals.delimiters = '<% %>';
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 
@@ -30,10 +29,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 //app.use('/users', users);
 
-
+/*
 app.get('*', function(req, res){
 	res.sendfile(__dirname + '/views/html.hjs');
 })
+*/
+
+/*
+if('development' == app.get('env')){
+  app.use(express.errorHandler());
+  mongoose.connect('mongodb://localhost:27017/usersdb')
+}
+*/
 
 
 

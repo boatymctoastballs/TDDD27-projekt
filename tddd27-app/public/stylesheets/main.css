@@ -1,1 +1,36 @@
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+#view{
+	padding-top: 70px;
+}
+
+#right .form-control{
+	width: 230px !important;
+}
+body{
+	background-image: url("/images/bg1.svg")
+}
+
+#sign-up-label{
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+#right .input-group-addon{
+	width: 90px !important;
+}
+
+#right form button{
+	position: relative;
+	margin-top: 5px;
+	float: right;
+}
+
+#quick-poll, #reg-poll{
+	width: 150px;
+	margin-bottom: 5px;
+}
+
+#left button{
+	float: right;
+}

@@ -1,0 +1,87 @@
+<div class="container-fluid" ng-controller="homeCtrl">
+	<div class="row">
+		<div id="left" class="col-sm-4">
+			<div class="container-fluid">
+				<h3><span class="label label-default" id="sign-up-label">Browse Polls</span></h3></br>
+				<form>	
+					<ul class="list-group">
+						<div class="input-group">
+						  <li class="list-group-item">Casual</li>
+						  	<span class="input-group-addon">
+					        	<input type="checkbox" aria-label="...">
+					      	</span>
+					     </div>
+					     <div class="input-group">	
+						  <li class="list-group-item">Politics</li>
+						  	<span class="input-group-addon">
+					        	<input type="checkbox" aria-label="...">
+					      	</span>
+					     </div>
+					     <div class="input-group">	
+						  <li class="list-group-item">Science</li>
+						  	<span class="input-group-addon">
+					        	<input type="checkbox" aria-label="...">
+					      	</span>
+					     </div>
+					     <div class="input-group">	
+						  <li class="list-group-item">Controversial</li>
+						  	<span class="input-group-addon">
+					        	<input type="checkbox" aria-label="...">
+					      	</span>
+					     </div>
+					     <div class="input-group">	
+						  <li class="list-group-item">Kinkies Naughties & Butts</li>
+						  	<span class="input-group-addon">
+					        	<input type="checkbox" aria-label="...">
+					      	</span>
+					    </div>
+					</ul><!--list-group-->	
+					<button class="btn btn-default" type="submit">Random Poll</button>
+				</form>	
+			</div><!--container-->
+		</div><!--col left-->
+
+		<div id="middle" class="col-sm-4">
+			<div class="container-fluid">
+			<h3><span class="label label-default" id="sign-up-label">Create Poll</span></h3></br>
+				<button id="quick-poll" class="btn btn-primary" type="submit">Quick Poll</button>
+				<button id="reg-poll" class="btn btn-success" type="submit">Regular Poll</button></br>
+				<div class="input-group">
+			      <input type="text" class="form-control" placeholder="Find Poll...">
+			      <span class="input-group-btn">
+			        <button id="search-poll-button" class="btn btn-default" type="button">Search</button>
+			      </span>
+			    </div><!-- /input-group -->
+			</div><!--container-->
+		</div><!--col middle-->
+
+		<div id="right" class="col-xs-4">			
+			<div class="container-fluid">			
+				<form ng-submit="submitSignUp()">
+					<h3><span class="label label-default" id="sign-up-label">Sign up</span></h3></br>							
+					<div class="form-group">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1">Username</span>
+						  <input type="text" class="form-control" placeholder="Username" ng-model="signUpUsernameData" aria-describedby="basic-addon1" id="sign-up-username-input">
+						</div></br>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1">Password</span>
+						  <input type="Password" class="form-control" placeholder="Password" ng-model="signUpPasswordData" aria-describedby="basic-addon1" id="sign-up-password-input">	
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1">Password</span>
+						  <input type="Password" class="form-control" placeholder="Repeat Password" ng-model="signUpPasswordDataRe" aria-describedby="basic-addon1" id="sign-up-password-re-input">	
+						</div>
+					<button type="submit" class="btn btn-default">Sign Up</button>
+					</div>
+				</form>
+				<a ui-sref="home">Cancle</a>								
+			</div><!--container-->
+		</div><!--col right-->
+	</div><!--row-->
+</div><!--container-->
+
