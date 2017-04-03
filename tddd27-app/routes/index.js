@@ -3,10 +3,10 @@ var router = express.Router();
 
 var mongo = require('mongoose');
 
-mongo.connect('mongodb://localhost:27017/db')
+mongo.connect('mongodb://localhost:27017')
 
-var user = require('/DBSchema').User;
-var poll = require('/DBSchema').Polls;
+var user = require('../data/DBSchema').User;
+var poll = require('../data/DBSchema').Polls;
 
 
 //
@@ -19,7 +19,7 @@ router.get('/', function(req, res){
 	res.render('index');
 });
 
-app.post('/signup', function(req, res){
+router.post('/signup', function(req, res){
 	var newUser = user({
 		userToken : res.body.userToken,
 		name : res.body.username,
@@ -33,13 +33,13 @@ app.post('/signup', function(req, res){
 	})
 })
 
-app.get('/users', function(req, res){
+router.get('/users', function(req, res){
   mongo.model('users').find(function(err, users){
     res.send(users)
   })
 })
 
-app.get('/polls', function(req, res){
+router.get('/polls', function(req, res){
   mongo.model('polls').find(function(err, users){
     res.send(polls)
   })
