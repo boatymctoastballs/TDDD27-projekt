@@ -1,3 +1,4 @@
+var app = require('../app')
 var express = require('express');
 var router = express.Router();
 
@@ -7,7 +8,6 @@ mongo.connect('mongodb://localhost:27017')
 
 var user = require('../data/DBSchema').User;
 var poll = require('../data/DBSchema').Polls;
-
 
 //
 /* GET home page. */
