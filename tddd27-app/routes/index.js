@@ -1,12 +1,67 @@
+var app = require('../app')
 var express = require('express');
 var router = express.Router();
 
-var mongo = require('mongoose');
+var mongoose = require('mongoose');
 
-mongo.connect('mongodb://localhost:27017/db')
+mongoose.connect('mongodb://localhost:27017')
 
-var user = require('/DBSchema').User;
-var poll = require('/DBSchema').Polls;
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+	userToken : {
+		type 		: String,
+		required 	: false,
+		unique 		: true
+	},
+	username : {
+		type 		: String,
+		required 	: true,
+		unique 		: true
+	},
+	password : {
+		type	: String,
+		required : true
+	}
+});
+
+
+var pollsSchema = new Schema({
+	pollId	: {
+		type 		: String,
+		required 	: true,
+		unique 		: true
+	},
+	pollTitle :  {
+		type 		: String,
+		required 	: true,
+		unique 		: false
+	},
+	data :  {
+		type 		: String,
+		required 	: true,
+		unique 		: true
+	},
+})
+
+
+
+
+userSchema.methods.addUser = function(){
+	//Do something
+}
+
+
+
+
+var Polls = mongoose.model('Polls', pollsSchema);
+var User = mongoose.model('User', userSchema);
+
+
+
+
+//var user = require('DBSchema').User;
+//var poll = require('DBSchema').Polls;
 
 
 //
