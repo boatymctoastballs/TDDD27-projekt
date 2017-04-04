@@ -22,11 +22,13 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 	})
 	.state('homeSignUp',{
 		url: '/signup',
-		templateUrl : '/templates/homeSignUp.html'
+		templateUrl : '/templates/homeSignUp.html',
+		controller : 'homeCtrl'
 
 	})
 
 }]);
+
 
 
 window.fbAsyncInit = function() {

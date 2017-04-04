@@ -9,7 +9,7 @@
 
   <body>
   	<div class="container-fluid col-sm-8 col-sm-offset-2">
-	  	<div ng-include="'templates/navbar.html'"></div>
+	  <div ng-include="'templates/navbar.html'"></div>
 	 	<div id ="view" ui-view></div>
 	 	<div ng-include="'templates/footer.html'"></div>
  	</div>

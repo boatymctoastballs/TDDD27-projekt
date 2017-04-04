@@ -1,13 +1,12 @@
-var app = require('../app')
 var express = require('express');
 var router = express.Router();
+var mongo = require('mongodb');
+var assert = require('assert');
 
-var mongo = require('mongoose');
+var url = 'mongodb://localhost:27017/db';
 
-mongo.connect('mongodb://localhost:27017')
-
-var user = require('../data/DBSchema').User;
-var poll = require('../data/DBSchema').Polls;
+//var user = require('../data/db/DBSchema').User;
+//var poll = require('../data/db/DBSchema').Polls;
 
 //
 /* GET home page. */
@@ -15,34 +14,60 @@ var poll = require('../data/DBSchema').Polls;
 //  res.render('index', { title: 'Express' });
 //});
 
-router.get('/', function(req, res){
-	res.render('index');
+router.get('/', function(req, res, next){
+	res.render('index',{title : "Poll City"});
 });
 
-router.post('/signup', function(req, res){
-	var newUser = user({
-		userToken : res.body.userToken,
-		name : res.body.username,
-		password : res.body.password
+router.post('/signup', function(req, res, next){	
+	var newUser = {
+		name : req.body.username,
+		password : req.body.password
+	};
+	mongo.connect(url, function(err, db){
+		assert.equal(null, err);
+		//db.users.createIndex({userToken: ""}, {sparse : true});
+		db.collection('users').insertOne(newUser, function(err2, result){
+			assert.equal(null, err2);
+			console.log('User iserted');
+			//db.users.createIndex({userToken: ""},{unique: true,	partialFilterExpression: { userToken: { $exists: true }}});
+			db.close();
+		});
+		
 	});
-	newUser.save(function(err){
-		if(err){
-			throw err;
-		}
-		console.log('User saved successfully');
-	})
-})
+	res.send(JSON.stringify(newUser));
+});
 
-router.get('/users', function(req, res){
-  mongo.model('users').find(function(err, users){
-    res.send(users)
-  })
-})
-
-router.get('/polls', function(req, res){
-  mongo.model('polls').find(function(err, users){
-    res.send(polls)
-  })
-})
+ router.get('/get-users', function(req, res, next){
+	var users = [];
+  	mongo.connect(url, function(err, db){
+ 		assert.equal(null, err);
+  		var cursor = db.collection('users').find();
+  		cursor.forEach(function(doc, err){
+  			assert.equal(null, err);
+  			resultArray.push(doc);
+		}, function(){
+			db.close();
+ 			res.render({userArray : users});
+ 		});
+   	});
+ });
 
 module.exports = router;
+
+
+
+// router.post('/signup', function(req, res, next){	
+// 	var newUser = user({
+// 		userToken : req.body.userToken,
+// 		name : req.body.username,
+// 		password : req.body.password
+// 	});
+// 	newUser.save(function(err){
+// 		if(err){
+// 			throw err;
+// 		}
+// 		console.log('User saved successfully');
+// 	});
+// 	res.send(200);
+// 	res.render(req.body);
+// });

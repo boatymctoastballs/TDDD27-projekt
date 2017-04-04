@@ -35,14 +35,14 @@ var pollsSchema = new Schema({
 		required 	: true,
 		unique 		: true
 	},
-})
+});
 
 
 
 
 userSchema.methods.addUser = function(){
 	//Do something
-}
+};
 
 
 

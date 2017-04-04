@@ -57,24 +57,24 @@
 
 		<div id="right" class="col-xs-4">			
 			<div class="container-fluid">			
-				<form ng-submit="submitSignUp()">
+				<form ng-submit="submitSignUp(signUpUsernameData, signUpPasswordData)">
 					<h3><span class="label label-default" id="sign-up-label">Sign up</span></h3></br>							
 					<div class="form-group">
 						<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon1">Username</span>
-						  <input type="text" class="form-control" placeholder="Username" ng-model="signUpUsernameData" aria-describedby="basic-addon1" id="sign-up-username-input">
+						  <input type="text" class="form-control" placeholder="Username" ng-model="signUpUsernameData" aria-describedby="basic-addon1" id="sign-up-username-input" required>
 						</div></br>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon1">Password</span>
-						  <input type="Password" class="form-control" placeholder="Password" ng-model="signUpPasswordData" aria-describedby="basic-addon1" id="sign-up-password-input">	
+						  <input type="Password" class="form-control" placeholder="Password" ng-model="signUpPasswordData" aria-describedby="basic-addon1" id="sign-up-password-input" required>	
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon1">Password</span>
-						  <input type="Password" class="form-control" placeholder="Repeat Password" ng-model="signUpPasswordDataRe" aria-describedby="basic-addon1" id="sign-up-password-re-input">	
+						  <input type="Password" class="form-control" placeholder="Repeat Password" ng-model="signUpPasswordDataRe" aria-describedby="basic-addon1" id="sign-up-password-re-input" required>	
 						</div>
 					<button type="submit" class="btn btn-default">Sign Up</button>
 					</div>
