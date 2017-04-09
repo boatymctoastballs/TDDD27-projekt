@@ -44,10 +44,10 @@ router.post('/signup', function(req, res, next){
   		var cursor = db.collection('users').find();
   		cursor.forEach(function(doc, err){
   			assert.equal(null, err);
-  			resultArray.push(doc);
+  			users.push(doc);
 		}, function(){
 			db.close();
- 			res.render({userArray : users});
+			res.send({"userArray" : users}); 			
  		});
    	});
  });

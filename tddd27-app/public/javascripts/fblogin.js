@@ -1,4 +1,35 @@
-  function statusChangeCallback(response) {
+app.controller = ('fbLogInCtrl', ['$scope', function($scope){
+
+    $scope.FBLogin = function(){
+      FB.login(function(response){
+        if(response.authResponse){
+          FB.api('/me', function(response){
+            console.log(response)
+          });
+
+          var accessToken = FB.getAuthResponse().accessToken;
+          console.log(accessToken);
+          $scope.goToAccount();
+          $scope.loginInState = false;
+
+        }
+        else{
+          console.log('User cancelled login or did not fully authorize.')
+        }
+    });
+  };
+
+  $scope.goToAccount = function () {
+    console.log("goToAccount loggedIn before: " + $scope.loggedIn);
+    $scope.loggedIn = false;
+    console.log("goToAccount loggedIn after: " + $scope.loggedIn);
+      $state.go('account', {
+    url: '/account',
+    templateUrl : '/templates/myAccount.html'
+    });
+  };
+
+    function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
     // The response object is returned with a status field that lets the
@@ -18,34 +49,35 @@
 //FB BUTTON <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
 
 
-function checkLoginState(){
+  function checkLoginState(){
+      FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1797427343908459',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.8',
+      status     : true
+    });
+    //^ maybe need status: true ^
+
+
     FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
+      statusChangeCallback(response);
+    });
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 }
-
-
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1797427343908459',
-    cookie     : true,
-    xfbml      : true,
-    version    : 'v2.8',
-    status     : true
-  });
-  //^ maybe need status: true ^
-
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-};
-
-(function(d, s, id){
-   var js, fjs = d.getElementsByTagName(s)[0];
-   if (d.getElementById(id)) {return;}
-   js = d.createElement(s); js.id = id;
-   js.src = "//connect.facebook.net/en_US/sdk.js";
-   fjs.parentNode.insertBefore(js, fjs);
- }(document, 'script', 'facebook-jssdk'));

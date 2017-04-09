@@ -1,5 +1,6 @@
-app.controller('homeCtrl', ['$scope', '$http', function($scope, $http){
+app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function($scope, $http, $stateParams, $state){
 	//Login
+
 	$scope.FBLogin = function(){
 		FB.login(function(response){
 			if(response.authResponse){
@@ -9,8 +10,7 @@ app.controller('homeCtrl', ['$scope', '$http', function($scope, $http){
 
 				var accessToken = FB.getAuthResponse().accessToken;
 				console.log(accessToken);
-
-
+				$scope.goToAccount();
 				$scope.loginInState = false;
 
 			}
@@ -21,10 +21,13 @@ app.controller('homeCtrl', ['$scope', '$http', function($scope, $http){
 	};
 
 	$scope.goToAccount = function () {
+		console.log("goToAccount loggedIn before: " + $scope.loggedIn);
+		$scope.loggedIn = false;
+		console.log("goToAccount loggedIn after: " + $scope.loggedIn);
     	$state.go('account', {
 		url: '/account',
 		templateUrl : '/templates/myAccount.html'
-	});
+		});
 	};
 
 
@@ -54,8 +57,12 @@ app.controller('homeCtrl', ['$scope', '$http', function($scope, $http){
 		}
 	}
 
+	$scope.loggedIn = true;
 
 	$scope.submitLogIn = function(username, password){
+		//console.log("loggedIn 1: "+ $scope.show.loggedIn);
+		
+		//console.log("loggedIn 2: "+ $scope.show.loggedIn);
 		var loginInfo = {
 			username : username,
 			password : password
@@ -64,16 +71,22 @@ app.controller('homeCtrl', ['$scope', '$http', function($scope, $http){
 	      	url: '/get-users',
 	     	method: 'GET',
 	     	}).then(function successCallBack(res){
-	     		console.log("Successfully response")
-	     		for(var i=0; i<res.data.length; i++){
-					if(loginInfo.username == res[i].data.name && loginInfo.password == res[i].data.password){
+	     		console.log("Successful response")
+	     		console.log("res.data " + JSON.stringify(res.data));
+	     		for(var i=0; i<res.data.userArray.length; i++){
+					if(loginInfo.username == res.data.userArray[i].name && loginInfo.password == res.data.userArray[i].password){
+						$scope.$emit('loggInStatus', true);
+						$scope.$on('loggInStatus', function(event, data){
+							event.stopPropagation();
+						});
+						
 						$scope.goToAccount();
 						console.log("Successfully login");
 	      			}
 	     		}
 	      		
 	      	}, function errorCallBack(res){
-	      		console.log("Error on login");
+	      		console.log("User does not exist, Sign up instead!");
 	      	});
 	}
 

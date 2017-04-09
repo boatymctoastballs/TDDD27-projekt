@@ -8,11 +8,11 @@
 
 
   <body>
-  	<div class="container-fluid col-sm-8 col-sm-offset-2">
-	  <div ng-include="'templates/navbar.html'"></div>
-	 	<div id ="view" ui-view></div>
-	 	<div ng-include="'templates/footer.html'"></div>
- 	</div>
+  	<div class="container-fluid col-sm-8 col-sm-offset-2" ng-controller="bodyCtrl">
+  	  <div ng-include="'templates/navbar.html'" ng-controller="navbarCtrl"></div>
+  	 	<div id ="view" ui-view></div>
+  	 	<div ng-include="'templates/footer.html'"></div>
+ 	  </div>
   </body>
 
 
@@ -26,7 +26,9 @@
 
   <script type="text/javascript" src="/javascripts/main.js"></script> 
   <script type="text/javascript" src="/javascripts/homeCtrl.js"></script>  
-
+  <script type="text/javascript" src="/javascripts/navbarCtrl.js"></script>
+  <script type="text/javascript" src="/javascripts/bodyCtrl.js"></script>
+  <script type="text/javascript" src="/javascripts/fblogin.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

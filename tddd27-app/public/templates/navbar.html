@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="navbarCtrl">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -17,13 +17,13 @@
         <li ui-sref-active="active"><a ui-sref="home">Home <span class="sr-only">(current)</span></a></li>
         <li ui-sref-active="active"><a ui-sref="poll">Create Poll</a></li>        
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" ng-show="loggedIn">
           <li class="dropdown" ui-sref-active="active">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a ui-sref="account">My Profile</a></li>
             <li role="separator" class="divider"></li>
-            <li><a ui-sref="logout">Log Out</a></li>
+            <li><a ng-click="logOutFunc()">Log Out</a></li>
           </ul>
         </li>
       </ul>
