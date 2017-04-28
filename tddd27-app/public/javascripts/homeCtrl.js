@@ -1,5 +1,6 @@
 app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function($scope, $http, $stateParams, $state){
 	//Login
+	$scope.loggedIn = true;
 
 	$scope.FBLogin = function(){
 		FB.login(function(response){
@@ -7,12 +8,11 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 				FB.api('/me', function(response){
 					console.log(response)
 				});
-
 				var accessToken = FB.getAuthResponse().accessToken;
 				console.log(accessToken);
 				$scope.goToAccount();
 				$scope.loginInState = false;
-
+				$scope.$emit('loggInStatus', true);
 			}
 			else{
 				console.log('User cancelled login or did not fully authorize.')
@@ -20,14 +20,12 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 		});
 	};
 
-	$scope.goToAccount = function () {
-		console.log("goToAccount loggedIn before: " + $scope.loggedIn);
-		$scope.loggedIn = false;
-		console.log("goToAccount loggedIn after: " + $scope.loggedIn);
+	$scope.goToAccount = function () {		
     	$state.go('account', {
 		url: '/account',
 		templateUrl : '/templates/myAccount.html'
 		});
+		$scope.loggedIn = false;
 	};
 
 
@@ -55,14 +53,9 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 
 	      	});     	
 		}
-	}
-
-	$scope.loggedIn = true;
+	}	
 
 	$scope.submitLogIn = function(username, password){
-		//console.log("loggedIn 1: "+ $scope.show.loggedIn);
-		
-		//console.log("loggedIn 2: "+ $scope.show.loggedIn);
 		var loginInfo = {
 			username : username,
 			password : password
@@ -75,11 +68,7 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 	     		console.log("res.data " + JSON.stringify(res.data));
 	     		for(var i=0; i<res.data.userArray.length; i++){
 					if(loginInfo.username == res.data.userArray[i].name && loginInfo.password == res.data.userArray[i].password){
-						$scope.$emit('loggInStatus', true);
-						$scope.$on('loggInStatus', function(event, data){
-							event.stopPropagation();
-						});
-						
+						$scope.$emit('loggInStatus', true);						
 						$scope.goToAccount();
 						console.log("Successfully login");
 	      			}

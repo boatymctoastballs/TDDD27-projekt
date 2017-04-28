@@ -72,13 +72,11 @@
 						</div>					
 					</div>
 					<button type="submit" class="btn btn-default">Login</button>
-				</form>
-				<div ng-controller="fbLogIn">
-					<fb:login-button  size="xlarge"></fb:login-button></br></br>
-					<div id="status"></div>
-				</div>
-				
-				<a ui-sref="homeSignUp" type="submit" class="btn btn-default">Sign up</a>										
+				</form>	
+				<div class="fb-login-button" data-size="large" data-show-faces="false" data-auto-logout-link="false" ng-click="FBLogin()"></div>				
+				<div id="status"></div>
+				<a ui-sref="homeSignUp" type="submit" class="btn btn-default">Sign up</a>	
+
 			</div><!--container-->
 		</div><!--col right-->
 	</div><!--row-->
