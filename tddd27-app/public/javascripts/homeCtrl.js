@@ -43,6 +43,7 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 	     	headers: {'Content-Type': 'application/json'},
 	     	data: JSON.stringify(data)
 	      	}).then(function successCallBack(res){
+	      		$scope.goToAccount();
 	      		console.log("Success: " + JSON.stringify(res.data));
 	      	},	function errorCallBack(res){
 	      		console.log("Failure: " + res.data);
@@ -61,10 +62,10 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 			password : password
 		};
 		$http({
-	      	url: '/get-users',
+	      	url: '/users',
 	     	method: 'GET',
 	     	}).then(function successCallBack(res){
-	     		console.log("Successful response")
+	     		console.log("Successful response");
 	     		console.log("res.data " + JSON.stringify(res.data));
 	     		for(var i=0; i<res.data.userArray.length; i++){
 					if(loginInfo.username == res.data.userArray[i].name && loginInfo.password == res.data.userArray[i].password){
@@ -78,6 +79,14 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 	      		console.log("User does not exist, Sign up instead!");
 	      	});
 	}
+
+	$scope.createQPoll = function(){
+		$state.go('qPoll', {
+			url: '/qPoll',
+			templateUrl : '/templates/createQPoll.html'
+		});
+	}
+
 
 }]);
 

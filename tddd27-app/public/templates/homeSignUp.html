@@ -44,7 +44,7 @@
 		<div id="middle" class="col-sm-4">
 			<div class="container-fluid">
 			<h3><span class="label label-default" id="sign-up-label">Create Poll</span></h3></br>
-				<button id="quick-poll" class="btn btn-primary" type="submit">Quick Poll</button>
+				<button id="quick-poll" class="btn btn-primary" type="submit" ng-click=createQPoll()>Quick Poll</button>
 				<button id="reg-poll" class="btn btn-success" type="submit">Regular Poll</button></br>
 				<div class="input-group">
 			      <input type="text" class="form-control" placeholder="Find Poll...">
@@ -79,7 +79,7 @@
 					<button type="submit" class="btn btn-default">Sign Up</button>
 					</div>
 				</form>
-				<a ui-sref="home">Cancle</a>								
+				<a ui-sref="home">Cancel</a>								
 			</div><!--container-->
 		</div><!--col right-->
 	</div><!--row-->

@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'chart.js']);
 
 //front end routes
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
@@ -26,6 +26,11 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 		controller : 'homeCtrl'
 
 	})
+  .state('qPoll',{
+    url: '/qPoll',
+    templateUrl : '/templates/createQPoll.html',
+    controller : 'qPollCtrl'
+  })
 
 }]);
 
@@ -40,7 +45,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
     //^ maybe need status: true ^
 
     FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
+     // statusChangeCallback(response);
     });
 
   };

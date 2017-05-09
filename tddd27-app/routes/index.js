@@ -18,6 +18,42 @@ router.get('/', function(req, res, next){
 	res.render('index',{title : "Poll City"});
 });
 
+
+//Chart collection
+router.post('/qPoll', function(req, res, next){
+	console.log("Entered qPoll POST method.");
+	var pollData = {
+		//question : req.body.question,
+	}
+	for (var i = 0; i<req.body.items.length; i++) {
+		pollData[i] = req.body.items[i];
+	}
+	mongo.connect(url, function(err, db){
+		assert(null, err);
+		db.collection('qPolls').insertOne(pollData, function(err2, result){
+			assert.equal(null, err2);
+			console.log("qPoll inserted.")
+			db.close();
+		});
+	});
+	res.send(JSON.stringify(pollData));
+});
+
+
+router.get('/qPoll', function(req, res, next){
+	var qPoll = {};
+	mongo.connect(url, function(err, db){
+		assert.equal(null, err);
+		var cursor = db.collection('qpolls').find();
+		cursor.forEach(function(doc, err){
+			assert.equal(null, err);
+
+		})
+	})
+})
+
+
+//Users collection
 router.post('/signup', function(req, res, next){	
 	var newUser = {
 		name : req.body.username,
@@ -28,7 +64,7 @@ router.post('/signup', function(req, res, next){
 		//db.users.createIndex({userToken: ""}, {sparse : true});
 		db.collection('users').insertOne(newUser, function(err2, result){
 			assert.equal(null, err2);
-			console.log('User iserted');
+			console.log('User iserted.');
 			//db.users.createIndex({userToken: ""},{unique: true,	partialFilterExpression: { userToken: { $exists: true }}});
 			db.close();
 		});
@@ -37,7 +73,7 @@ router.post('/signup', function(req, res, next){
 	res.send(JSON.stringify(newUser));
 });
 
- router.get('/get-users', function(req, res, next){
+ router.get('/users', function(req, res, next){
 	var users = [];
   	mongo.connect(url, function(err, db){
  		assert.equal(null, err);

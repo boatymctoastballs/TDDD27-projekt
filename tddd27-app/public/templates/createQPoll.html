@@ -1,0 +1,26 @@
+<div class="container-fluid" ng-controller="qPollCtrl">
+	<div class="row">
+		<div class="col-xs-6">
+			<form id="optionForm" ng-submit="sendQPollData()">
+				<div class="input-group">
+			    	<input id="qQuestion" type="text" class="form-control" name="msg" ng-model="question" placeholder="Question...">
+			  	</div>
+
+			  	<div class="input-group">
+			    	<input id="option1" type="text" class="form-control" name="msg" ng-model="option1" placeholder="Option...">
+			  	</div>
+
+			  	<div class="input-group">
+			    	<input id="option2" type="text" class="form-control" name="msg" ng-model="option2" placeholder="Option...">
+			  	</div>
+
+			  	<div class="input-group">
+			    	<input id="option3" type="text" ng-keydown="($event.keyCode == 13 || 
+           $event.keyCode == 9) && updateFormInput()" class="form-control" name="msg" ng-model="option3" placeholder="Option...">
+			  	</div>
+			  	<button id="create-qPoll" class="btn btn-primary" type="submit">Create Poll</button>
+			</form>
+			
+		</div>
+	</div>
+</div>

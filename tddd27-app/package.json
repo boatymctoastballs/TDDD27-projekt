@@ -6,17 +6,18 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "grunt": "^1.0.1",
+    "kerberos": "~0.0.17",
     "less-middleware": "~2.2.0",
+    "mongodb": "~2.0.33",
     "mongoose": "^4.9.2",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2",
-    "kerberos": "~0.0.17",
-    "mongodb": "~2.0.33"
+    "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
     "grunt-contrib-concat": "^1.0.1",
