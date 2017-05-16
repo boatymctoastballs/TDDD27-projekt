@@ -1,50 +1,58 @@
-app.controller('qPollCtrl',['$scope', '$document', '$http', function($scope, $document, $http){
-	$scope.optionsElements = $document[0].getElementById('optionForm');
-	$scope.sizeCtr = 3;
-	$scope.fullCtr = 0;
-	$scope.newOption = '<div class="input-group"><input type="text" ng-keydown="($event.keyCode == 13 || $event.keyCode == 9) && updateFormInput()" class="form-control" name="msg" ng-model="option" placeholder="Option..."></div>'
+app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($scope, $document, $http, $state){
+	//$scope.optionsElements = $document[0].getElementById('optionForm');
+	$scope.optionElements = [{id: 'question'}, {id: 'option'}];		
+	$scope.optionData = [];
+	$scope.dataListLength = 2;
 
-
-	console.log("optionelements: "+ $scope.optionsElements);
-	
-
-
-	$scope.updateFormInput = function(){
-		angular.forEach($scope.optionsElements, function(value, key){
-			console.log($scope.optionsElements[key].id);
-		});
-		$scope.sizeCtr++;
-		console.log("sizeCtr: " + $scope.sizeCtr)
-		/*
-		angular.forEach($scope.optionsElements, function(option, key){
-			$scope.sizeCtr++;
-		});
-		angular.forEach($scope.optionsElements,function(option, key){
-			if (optionsElements[key].$scope.option !=0){
-				$scope.fullCtr++;
-			}
-		});
-*/
-		$scope.optionsElements.append($scope.newOption);				
+	$scope.addOptionField = function(){
+		var newOptionEle = $scope.optionElements.length+1;
+		$scope.optionElements.push({'id' : 'choice' + newOptionEle});
 	};
 
-	$scope.sendQPollData = function(){
-		qPollData = {}
+	$scope.removeOptionField = function(id, value){
+		console.log("removeoptionfield");
+		if(value==""){
+			$scope.optionElements.splice(id.substr(id.length-1));
+		}		
+	}
 
-		angular.forEach($scope.optionsElements, function(value, key){
-			qPollData[key]=$scope.optionsElements[key].value;
-
-			console.log("optionselements Key: " + $scope.optionsElements[key].value);
-
+	$scope.goToQPollView = function(data){
+	//Do something with data	
+	//Show chart representation and give link to get people to vote
+		//$state.get('qPollView').data = "HEJ";
+		console.log("id: " + JSON.stringify(data.id));
+	   	$state.go('qPollView', {
+			url: '/qPollView/data.id',
+			templateUrl : '/templates/qPollView.html',
+			controller: 'qPollViewCtrl',
+			data: data.data,
+			qPollId : data.id
 		});
+		//$scope.$emit('qPollId', data); 		
+	}
+
+	$scope.sendQPollData = function(){	
+		$scope.optionData = [];
+		var qPollData = [];				
+		$scope.$broadcast('getData', true);		
+		
+		for(var i=0; i<$scope.dataListLength; i++){
+			if($scope.optionData[i] != ""){
+				qPollData.push($scope.optionData[i]);
+			}
+		}
+		$scope.optionData = qPollData;
+		console.log("data at sendQPollData: " + JSON.stringify(qPollData));
 		$http({
 			url : '/qPoll',
 			method : 'POST',
-			headers : {'Content-Type': 'application/json'},
+		 	headers : {'Content-Type': 'application/json'},
 			data : JSON.stringify(qPollData)
 		})	.then(function successCallBack(res){
-			console.log("Successfully sent qpollData")
-				},
+			console.log("res.data.id at qpollctrl: " + res.data.id);
+			console.log("res.data.id at qpollctrl: " + JSON.stringify(res.data));					
+			$scope.goToQPollView(res.data);							
+			},
 			function errorCallBack(res){
 				console.log("Failure: " + res.data);
 				console.log(res.status);

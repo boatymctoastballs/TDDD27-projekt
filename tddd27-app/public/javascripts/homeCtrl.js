@@ -43,6 +43,7 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 	     	headers: {'Content-Type': 'application/json'},
 	     	data: JSON.stringify(data)
 	      	}).then(function successCallBack(res){
+	      		$scope.$emit('loggInStatus', true);	
 	      		$scope.goToAccount();
 	      		console.log("Success: " + JSON.stringify(res.data));
 	      	},	function errorCallBack(res){

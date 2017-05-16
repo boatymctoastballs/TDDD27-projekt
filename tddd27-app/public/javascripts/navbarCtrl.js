@@ -1,14 +1,12 @@
 app.controller('navbarCtrl', ['$scope', '$stateParams', '$state',  function($scope, $stateParams, $state){
 	$scope.loggedIn = false;
 
-	console.log("loggedIn: @ navbarCtrl: " + $scope.loggedIn);
-	$scope.$on('loggInStatus', function(event, data){
-		console.log("data: @ navbarCtrl: " + data);
+	
+	$scope.$on('loggInStatus', function(event, data){		
 		if(data == true){
 			$scope.loggedIn = true;
 		}
-		event.defaultPrevented = true; 
-		console.log("loggedIn after $on: @ navbarCtrl: " + $scope.loggedIn);
+		event.defaultPrevented = true; 		
 	});
 
 	$scope.logOutFunc = function(){	

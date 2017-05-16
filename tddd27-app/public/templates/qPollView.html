@@ -1,23 +1,27 @@
-<div class="container-fluid" ng-controller="qPollCtrl">
+<div class="container-fluid" ng-controller="qPollViewCtrl">
 	<div class="row">
+		<div class="col-xs-6" id="qPollViewLabels">
+			<div class="funkyradio">
+				<label id="questionLabel" class="label label-primary full-width">{{qPollQuestion}}</label>
+				<form>
+					<div ng-if="repeatBool" data-ng-repeat="option in qPollOptions track by $index" class="funkyradio-{{randomLabel()}}">
+					<input type="radio" name="radio" id="radio{{$index}}" ng-model="$parent.voteIndex" ng-value="{{$index}}"/>	
+					<label for="radio{{$index}}" class="label label-{{randomLabel()}} full-width">{{option}}</label>
+						{{voteIndex}}					
+				</div>
+					{{voteIndex}}	
+				</form>			
+						
+			</div>			
+			<button id="qPoll-Vote" class="btn btn-primary" type="submit" ng-click="addVoteCount()">Vote</button>			
+			<button id="qPoll-Result" class="btn btn-primary" type="submit" ng-click="goToResultView()">Result</button>		
+		</div>
+
 		<div class="col-xs-6">
-			<form>
-				<div class="input-group">
-			    	<input id="qQuestion" type="text" class="form-control" name="msg" placeholder="Question...">
-			  	</div>
-
-			  	<div class="input-group">
-			    	<input id="option1" type="text" class="form-control" name="msg" placeholder="Option...">
-			  	</div>
-
-			  	<div class="input-group">
-			    	<input id="option2" type="text" class="form-control" name="msg" placeholder="Option...">
-			  	</div>
-
-			  	<div class="input-group">
-			    	<input id="option3" type="text" class="form-control" name="msg" placeholder="Option...">
-			  	</div>
-			</form>
+			 <div class="input-group">
+			  <span class="input-group-addon" id="qPollUrlLabel">Copy URL</span>
+			  <input type="text" class="form-control" id="qPollUrl2" aria-describedby="basic-addon3" readonly="" ng-value="qPollURL">
+			</div>
 		</div>
 	</div>
-</div>
+</div> 

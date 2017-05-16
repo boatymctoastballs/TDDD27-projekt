@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'chart.js']);
+var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'chart.js', 'qPollOptionDir']);
 
 //front end routes
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider){
@@ -30,6 +30,23 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
     url: '/qPoll',
     templateUrl : '/templates/createQPoll.html',
     controller : 'qPollCtrl'
+  })
+  .state('qPollView',{
+    url: '/qPollView/:qPollId',
+    templateUrl: '/templates/qPollView.html',
+    controller: 'qPollViewCtrl',
+    params: {
+      data: {array: true},
+      qPollId: ""
+    }
+  })
+  .state('qPollResult',{
+    url: '/qPollResult/:qPollId',
+    templateUrl: '/templates/qPollResult.html',
+    controller: 'qPollResultCtrl',
+    params: {
+      qPollId: ""
+    }
   })
 
 }]);
