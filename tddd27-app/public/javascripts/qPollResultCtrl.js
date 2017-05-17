@@ -1,8 +1,8 @@
-app.controller('qPollRestulCtrl',['$scope', '$http', '$state', '$stateParams', function($scope, $http, $state, $stateParams){
+app.controller('qPollResultCtrl',['$scope', '$http', '$state', '$stateParams', function($scope, $http, $state, $stateParams){
 		$scope.qPollId = $stateParams.qPollId;
-
+		console.log("result id" + $scope.qPollId);
 		$http({
-	      	url: '/qPollResult/$scope.qPollId',
+	      	url: '/qPoll',
 	     	method: 'GET',
 	     	headers: {'Content-Type': 'application/json'},
 	     	params: {
@@ -10,10 +10,10 @@ app.controller('qPollRestulCtrl',['$scope', '$http', '$state', '$stateParams', f
 	      		}
 	      	}).then(function successCallBack(res){	      		
 	      		      		
-	      		console.log("Success: " + JSON.stringify(res.data));
+	      		console.log("Success: " + JSON.stringify(res.body));
 	      	},	function errorCallBack(res){
-	      		console.log("Failure: " + res.data);
-	      		console.log("data after fail: " + JSON.stringify(data.username));
+	      		console.log("Failure: " + res.body);
+	      		console.log("data after fail: " + JSON.stringify(res.body));
 				console.log(res.status);
 				console.log(res.statusText);
 				console.log(res.headers());

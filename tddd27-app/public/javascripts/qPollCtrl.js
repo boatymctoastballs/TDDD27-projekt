@@ -20,13 +20,13 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 	//Do something with data	
 	//Show chart representation and give link to get people to vote
 		//$state.get('qPollView').data = "HEJ";
-		console.log("id: " + JSON.stringify(data.id));
+		console.log("id: " + JSON.stringify(data._id));
 	   	$state.go('qPollView', {
-			url: '/qPollView/data.id',
+			url: '/qPollView/data._id',
 			templateUrl : '/templates/qPollView.html',
 			controller: 'qPollViewCtrl',
 			data: data.data,
-			qPollId : data.id
+			qPollId : data._id
 		});
 		//$scope.$emit('qPollId', data); 		
 	}
@@ -49,7 +49,7 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 		 	headers : {'Content-Type': 'application/json'},
 			data : JSON.stringify(qPollData)
 		})	.then(function successCallBack(res){
-			console.log("res.data.id at qpollctrl: " + res.data.id);
+			console.log("res.data.id at qpollctrl: " + res.data._id);
 			console.log("res.data.id at qpollctrl: " + JSON.stringify(res.data));					
 			$scope.goToQPollView(res.data);							
 			},

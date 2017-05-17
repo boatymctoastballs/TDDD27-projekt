@@ -47,13 +47,13 @@ app.controller('qPollViewCtrl',['$scope', '$http', '$state', '$stateParams', fun
 		}
 
 	$scope.goToResultView = function(){
+		var id =  $scope.qPollId;
+		console.log("id at gotoresult: " + id);
 		$state.go('qPollResult',{
-		    url: '/qPollResult/$scope.qPollId',
+		    url: '/qPollResult/id',
 		    templateUrl: '/templates/qPollResult.html',
 		    controller: 'qPollResultCtrl',
-		    params: {
-		    	qPollId: $scope.qPollId
-    			}
+		    qPollId: id    			
   		});
 	}		
 }]);

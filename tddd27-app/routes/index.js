@@ -8,12 +8,6 @@ var url = 'mongodb://localhost:27017/db';
 //var user = require('../data/db/DBSchema').User;
 //var poll = require('../data/db/DBSchema').Polls;
 
-//
-/* GET home page. */
-//router.get('/', function(req, res, next) {
-//  res.render('index', { title: 'Express' });
-//});
-
 router.get('/', function(req, res, next){
 	res.render('index',{title : "Poll City"});
 });
@@ -31,10 +25,10 @@ router.post('/qPoll', function(req, res, next){
 		//assert(null, err); //IDK why this throws error
 		db.collection('qPolls').insertOne(pollData, function(err2, result){
 			assert.equal(null, err2);			
-			pollData['id'] = pollData._id;
-			console.log("id: " + pollData._id);
-			console.log("id again: " + pollData.id);
-			console.log("result: " + result);
+			//pollData['id'] = pollData._id;
+			//console.log("id: " + pollData._id);
+			//console.log("id again: " + pollData.id);
+			//console.log("result: " + result);
 			res.send(JSON.stringify(pollData));			
 			db.close();
 		});
@@ -43,17 +37,21 @@ router.post('/qPoll', function(req, res, next){
 });
 
 
-router.get('/qPoll', function(req, res, next){
+router.get('/qPoll/:qPollId', function(req, res, next){
 	var qPoll = {};
+	var BSON = require('mongodb').BSONPure;
+	var obj_id = BSON.ObjectID.createFromHexString(req.params.qPollId);
+	console.log("obj_id: " + obj_id);
+
 	mongo.connect(url, function(err, db){
 		assert.equal(null, err);
-		var cursor = db.collection('qpolls').find();
-		cursor.findById(req.params._id, function(doc, err){
+		db.collection('qpolls').findOne({_id: obj_id}, function(doc, err){
 			assert.equal(null, err);
-			qPoll.push(doc);
+			console.log("qPoll: " + qPoll);
+			qPoll = doc;
 		}, function(){
 			db.close();
-			res.render('index', {'qPolls': qPoll});
+			res.send({'qPoll': qPoll});
 		});
 	});
 });
