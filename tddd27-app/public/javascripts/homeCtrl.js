@@ -1,6 +1,60 @@
+
+app.factory("QPollsFac", function(){
+	var qPolls = ["as","ss","vs","bs"];
+	return qPolls
+});
+
 app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function($scope, $http, $stateParams, $state){
 	//Login
 	$scope.loggedIn = true;
+	$scope.searchedPoll = undefined;
+	$scope.qPollsData = {};
+	//$scope.qPolls = [];
+	$scope.qPollsId = [];
+	$scope.qPollIndex = [];
+	$scope.qPolls = ['asdf','fgfgafs', 'sdfh','141241241'];
+	$scope.selected='';
+	console.log("qpolls fac: " + $scope.qPolls);
+	console.log("qpolls fac2: ");
+	$http({
+      	url: '/qPolls',
+     	method: 'GET',
+     	headers: {'Content-Type': 'application/json'},     	
+    })	.then(function successCallBack(res){
+      		//console.log("res.data: " + JSON.stringify(res.data));
+      		console.log("res.data.qPolls: " + JSON.stringify(res.data.qPolls));
+      		console.log("res.data.qPolls[0]._id: " + JSON.stringify(res.data.qPolls[0]._id));
+
+      		var responseData = res.data.qPolls;
+      		console.log("res.data: " + JSON.stringify(responseData));
+
+      		for(var i = 0; i<responseData.length;i++){
+      			$scope.qPollsData[i] = responseData[i];
+      			$scope.qPollsId.push(responseData[i]._id);      			
+      			//$scope.qPolls.push(responseData[i].data[0].option)
+      		}
+      		/*
+      		//console.log("res.data.qPolls.data[0].option: " + JSON.stringify(res.data.qPolls[0].data[0].option));
+      		$scope.qPollsData = res.data.qPolls;
+      		//console.log("qpols: " + JSON.stringify($scope.qPolls));    
+      		for(var i = 0; i<res.data.qPolls.length;i++){
+      			//console.log("res.data.qPolls[0].data[0]: " + JSON.stringify(res.data.qPolls[0].data[0]));
+
+      			$scope.qPollsData.push(res.data.qPolls[i]);      			
+      			//if(res.data.qPolls[i].data["0"][option] != undefined){
+					$scope.qPolls.push(res.data.qPolls[i].data[0].option);
+      			//}      			
+      			$scope.qPollsId.push(res.data.qPolls[i]._id);
+      			
+      		}*/
+      		console.log(JSON.stringify($scope.qPolls));
+      		console.log(JSON.stringify($scope.qPollsId)); 
+      		console.log(JSON.stringify($scope.qPollsData));    
+
+      	},	function errorCallBack(res){
+      		console.log("Failure: " + res.data); 
+      		}
+      	); 
 
 	$scope.FBLogin = function(){
 		FB.login(function(response){
@@ -48,11 +102,6 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 	      		console.log("Success: " + JSON.stringify(res.data));
 	      	},	function errorCallBack(res){
 	      		console.log("Failure: " + res.data);
-	      		console.log("data after fail: " + JSON.stringify(data.username));
-				console.log(res.status);
-				console.log(res.statusText);
-				console.log(res.headers());
-
 	      	});     	
 		}
 	}	
@@ -90,4 +139,5 @@ app.controller('homeCtrl', ['$scope', '$http','$stateParams', '$state', function
 
 
 }]);
+
 

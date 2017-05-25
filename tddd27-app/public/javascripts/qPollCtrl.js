@@ -16,19 +16,14 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 		}		
 	}
 
-	$scope.goToQPollView = function(data){
-	//Do something with data	
-	//Show chart representation and give link to get people to vote
-		//$state.get('qPollView').data = "HEJ";
-		console.log("id: " + JSON.stringify(data._id));
-	   	$state.go('qPollView', {
-			url: '/qPollView/data._id',
+	$scope.goToQPollView = function(data, id){
+		$state.go('qPollView', {
+			url: '/qPollView/id',
 			templateUrl : '/templates/qPollView.html',
 			controller: 'qPollViewCtrl',
-			data: data.data,
-			qPollId : data._id
+			data: data,
+			qPollId: id
 		});
-		//$scope.$emit('qPollId', data); 		
 	}
 
 	$scope.sendQPollData = function(){	
@@ -42,6 +37,26 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 			}
 		}
 		$scope.optionData = qPollData;
+		$http({
+		url : '/qPoll',
+		method : 'POST',
+	 	headers : {'Content-Type': 'application/json'},
+		data : JSON.stringify(qPollData)
+	})	.then(function successCallBack(res){
+		console.log(JSON.stringify(res.data));			
+		$scope.goToQPollView(res.data.data, res.data._id);						
+		},
+		function errorCallBack(res){
+			console.log("Failure: " + res.data);
+			console.log(res.status);
+			console.log(res.statusText);
+			console.log(res.headers());
+	});
+
+
+		
+/*
+
 		console.log("data at sendQPollData: " + JSON.stringify(qPollData));
 		$http({
 			url : '/qPoll',
@@ -58,7 +73,7 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 				console.log(res.status);
 				console.log(res.statusText);
 				console.log(res.headers());
-		});
+		});*/
 	};
 
 }]);

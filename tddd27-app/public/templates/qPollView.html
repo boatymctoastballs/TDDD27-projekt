@@ -2,16 +2,11 @@
 	<div class="row">
 		<div class="col-xs-6" id="qPollViewLabels">
 			<div class="funkyradio">
-				<label id="questionLabel" class="label label-primary full-width">{{qPollQuestion}}</label>
-				<form>
-					<div ng-if="repeatBool" data-ng-repeat="option in qPollOptions track by $index" class="funkyradio-{{randomLabel()}}">
-					<input type="radio" name="radio" id="radio{{$index}}" ng-model="$parent.voteIndex" ng-value="{{$index}}"/>	
-					<label for="radio{{$index}}" class="label label-{{randomLabel()}} full-width">{{option}}</label>
-						{{voteIndex}}					
+				<label id="questionLabel" class="label label-primary full-width">{{qPollQuestion}}</label>				
+				<div ng-if="repeatBool" data-ng-repeat="option in qPollOptions track by $index" class="funkyradio-{{rndLabel}}">
+					<input type="radio" name="radio" id="radio{{$index}}" ng-click="setIndex($index)" ng-model="$parent.voteIndex" ng-value="{{$index}}"/>	
+					<label for="radio{{$index}}" ng-click="setIndex($index)" class="label label-{{rndLabel}} full-width">{{option}}</label>		
 				</div>
-					{{voteIndex}}	
-				</form>			
-						
 			</div>			
 			<button id="qPoll-Vote" class="btn btn-primary" type="submit" ng-click="addVoteCount()">Vote</button>			
 			<button id="qPoll-Result" class="btn btn-primary" type="submit" ng-click="goToResultView()">Result</button>		

@@ -3,6 +3,9 @@ var router = express.Router();
 var mongo = require('mongodb');
 var assert = require('assert');
 
+var objectId = require('mongodb').ObjectID;
+//var BSON = require('bson').BSONPure
+
 var url = 'mongodb://localhost:27017/db';
 
 //var user = require('../data/db/DBSchema').User;
@@ -36,37 +39,56 @@ router.post('/qPoll', function(req, res, next){
 	
 });
 
-
-router.get('/qPoll/:qPollId', function(req, res, next){
-	var qPoll = {};
-	var BSON = require('mongodb').BSONPure;
-	var obj_id = BSON.ObjectID.createFromHexString(req.params.qPollId);
-	console.log("obj_id: " + obj_id);
-
-	mongo.connect(url, function(err, db){
-		assert.equal(null, err);
-		db.collection('qpolls').findOne({_id: obj_id}, function(doc, err){
-			assert.equal(null, err);
-			console.log("qPoll: " + qPoll);
-			qPoll = doc;
+ router.get('/qPolls', function(req, res, next){
+	var qPolls = [];
+  	mongo.connect(url, function(err, db){
+ 		assert.equal(null, err);
+  		var cursor = db.collection('qPolls').find();
+  		cursor.forEach(function(doc, err){
+  			assert.equal(null, err);
+  			qPolls.push(doc);
 		}, function(){
 			db.close();
-			res.send({'qPoll': qPoll});
-		});
+			res.send({"qPolls" : qPolls}); 			
+ 		});
+   	});
+ });
+
+router.get('/qPoll/:qPollId', function(req, res, next){					
+	var obj_id = objectId(req.params.qPollId);	
+	console.log("objid: " + obj_id);	
+	mongo.connect(url, function(err, db){
+		assert.equal(null, err);		
+		db.collection('qPolls').findOne({_id: obj_id}, function(err, doc){					
+				console.log(doc);	
+				assert.equal(null, err);					
+				res.send(doc)
+				db.close();
+		});	
 	});
 });
 
 router.post('/qVote', function(req, res, next){
-	var qPollId = req.body.qPollId;
-	var index = req.body.index;
+	try {		
+		var obj_id = objectId(req.body.qPollId);
+		var index = req.body.index+1;
+		console.log("index: " + index);
+		}	
+	catch (e) {
+		   console.log(e);
+		}
+
+	//console.log('data index : ' + data[index].voteCount);
 	mongo.connect(url, function(err, db){
-		assert.equal(null, err);		
-		db.collection('qPolls').update({"_id" : qPollId}, {$inc: { 'data[index].voteCount': 1 }}, true, function(err2, result){
-			assert.equal(null, err2);
-			console.log('Poll vote updated.');			
-			db.close();
-		});
-		
+		assert.equal(null, err);
+		try {
+			console.log("In try");
+			db.collection('qPolls').updateOne({"_id" : obj_id}, {$inc: {["data." + index + ".voteCount"]: 1}});
+			res.send("qVote updated");
+		}	
+		catch (e) {
+		   console.log(e);
+		}	
 	});
 });
 
@@ -82,10 +104,9 @@ router.post('/signup', function(req, res, next){
 			assert.equal(null, err2);
 			console.log('User iserted.');			
 			db.close();
-		});
-		
-	});
-	res.send(JSON.stringify(newUser));
+			res.send(JSON.stringify(newUser));
+		});		
+	});	
 });
 
  router.get('/users', function(req, res, next){

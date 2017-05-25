@@ -36,7 +36,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
     templateUrl: '/templates/qPollView.html',
     controller: 'qPollViewCtrl',
     params: {
-      data: {array: true},
+      data: null,
       qPollId: ""
     }
   })

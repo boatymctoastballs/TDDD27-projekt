@@ -1,6 +1,39 @@
 <div class="container-fluid" ng-controller="qPollResultCtrl">
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-xs-12">
+			<label id="resultQuestionLabel" class="label label-primary full-width">{{question}}</label>				
 		</div>
 	</div>
+	<br/>
+	<div class="row">
+		<div class="col-xs-6">
+			<div ng-if="dataRepeat" ng-repeat="data in styleWidth track by $index">
+				<div class="col-xs-1">
+					<p class="percentValue">{{styleWidthPercent[$index] | limitTo : 4}}%</p>
+				</div>
+				<div class="col-xs-11">
+					<div ng-if="data!='0'" class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="{{data}}">
+						{{pieLabels[$index]}}					
+						</div>					
+					</div>	
+				</div>			
+			</div>
+			<button id="resultVoteButton" class="btn btn-primary" type="submit" ng-click="backToVote()">Vote</button>
+		</div>
+
+		<div class="col-xs-6">			
+			<canvas id="pie" class="chart chart-pie" chart-data="pieData" chart-labels="pieLabels" chart-options="options"></canvas><br/>		
+			<div class="input-group">
+			  <span class="input-group-addon" id="qPollUrlLabel">Copy URL</span>
+			  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly="" ng-value="qPollURL">
+			</div>			
+		</div>
+		
+		
+	</div>
 </div>
+<!--  mån fredag 8.30-17.30   010105-9685 um - platensgatan 10a
+							  010105-9660 vårdcentralen 10:20
+				  07.30-1700  010105-9790	std-könsmotagningen -hud 13:10	
+ -->
