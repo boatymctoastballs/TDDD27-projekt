@@ -1,11 +1,15 @@
 <div class="container-fluid" ng-controller="qPollCtrl">
 	<div class="row">
 		<div class="col-xs-4" id="optionInputs">
-			<div data-ng-repeat="option in optionElements">					
+		<h3><span class="label label-default" id="sign-up-label">Create Poll</span></h3></br>
+			<form ng-submit="sendQPollData()">
+				<div data-ng-repeat="option in optionElements">					
 				<qpoll-option option="option" optionElements="optionElements" ng-model="inputValue">						
 				</qpoll-option>				
-			</div>						
-			<button id="create-qPoll" class="btn btn-primary" type="submit" ng-click="sendQPollData()">Create Poll</button>			
+				</div><br/>
+			<button id="create-qPoll" class="btn btn-primary" type="submit">Create Poll</button>				
+			</form>							
+				
 		</div>		
 	</div>
 </div>

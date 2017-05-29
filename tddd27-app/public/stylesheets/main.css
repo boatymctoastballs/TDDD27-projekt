@@ -4,6 +4,10 @@
 	padding-top: 70px;
 }
 
+#footer{
+  margin-left: 40%;
+}
+
 #right .form-control{
 	width: 230px !important;
 }
@@ -36,9 +40,6 @@ body{
 	float: right;
 }
 
-.optionField{
-	margin-top: 10px;
-}
 
 #questionLabel{
 	border: 2px solid black;
@@ -52,6 +53,15 @@ body{
     display:block;
     margin-bottom: 5px;
     font-size: 150%;
+}
+
+.full-width-2{
+ 
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display:block;
+  margin-bottom: 5px;
+  font-size: 150%;
 }
 
 #qPoll-Result{

@@ -25,13 +25,8 @@ router.post('/qPoll', function(req, res, next){
 	});	
 
 	mongo.connect(url, function(err, db){
-		//assert(null, err); //IDK why this throws error
 		db.collection('qPolls').insertOne(pollData, function(err2, result){
-			assert.equal(null, err2);			
-			//pollData['id'] = pollData._id;
-			//console.log("id: " + pollData._id);
-			//console.log("id again: " + pollData.id);
-			//console.log("result: " + result);
+			assert.equal(null, err2);
 			res.send(JSON.stringify(pollData));			
 			db.close();
 		});
@@ -109,7 +104,8 @@ router.post('/signup', function(req, res, next){
 	});	
 });
 
- router.get('/users', function(req, res, next){
+
+router.get('/users', function(req, res, next){
 	var users = [];
   	mongo.connect(url, function(err, db){
  		assert.equal(null, err);
@@ -125,21 +121,3 @@ router.post('/signup', function(req, res, next){
  });
 
 module.exports = router;
-
-
-
-// router.post('/signup', function(req, res, next){	
-// 	var newUser = user({
-// 		userToken : req.body.userToken,
-// 		name : req.body.username,
-// 		password : req.body.password
-// 	});
-// 	newUser.save(function(err){
-// 		if(err){
-// 			throw err;
-// 		}
-// 		console.log('User saved successfully');
-// 	});
-// 	res.send(200);
-// 	res.render(req.body);
-// });

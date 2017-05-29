@@ -43,13 +43,13 @@
 
 		<div id="middle" class="col-sm-4">
 			<div class="container-fluid">
-			<h3><span class="label label-default" id="sign-up-label">Create Poll</span></h3></br>
+			<h3><span class="label label-default" id="sign-up-label">Create Poll</span></h3><br/>
 				<button id="quick-poll" class="btn btn-primary" type="submit" ng-click=createQPoll()>Quick Poll</button>
 				<button id="reg-poll" class="btn btn-success" type="submit">Regular Poll</button></br>
 				<div class="input-group">
-			      <input type="text" ng-change="onedit()" class="form-control" name="qPolls" placeholder="Find Poll..." ng-model="selected" uib-typeahead="qPoll for qPoll in qPolls | filter:$viewValue">
+			      <input type="text" class="form-control" name="qPolls-name" placeholder="Find Poll..." ng-model="selected" uib-typeahead="qPoll for qPoll in qPolls | filter:$viewValue">
 			      <span class="input-group-btn">
-			        <button id="search-poll-button" class="btn btn-default" type="button">Search</button>
+			        <button id="search-poll-button" class="btn btn-default" type="button" ng-click="goToPollView()">Search</button>
 			      </span>
 
 			    </div><!-- /input-group -->

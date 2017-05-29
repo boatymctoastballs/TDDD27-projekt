@@ -1,9 +1,20 @@
 angular.module('qPollOptionDir', [])
 	.directive('qpollOption', function($compile){		
 		var getTemplate = function(tp){
-			var template = '';
-			var questionTemplate = '<input type="text" required ng-model="inputValue" name="data" placeholder="Question...">';
-			var optionTemplate = '<input class="optionField" type="text" ng-model="inputValue" name="data" ng-keydown="($event.keyCode == 13 || $event.keyCode == 9) && addOptionField()" ng-keydown="($event.keyCode == 8) && removeOptionField(option.id, optV)" placeholder="Option...">';
+			var template = '';			
+			var questionTemplate = '<div class="form-group">' +         			
+					'<div class="input-group">' +
+						'<input type="text" class="form-control" name="qPoll-question" id="qPoll-question" placeholder="Question..." required="true">' +
+						'<span class="input-group-addon danger"><span class="glyphicon glyphicon-star-empty"></span></span>' +
+					'</div>'+
+				'</div>';
+
+			var optionTemplate = '<div class="form-group">' +        			
+					'<div class="input-group">' +
+						'<input type="text" class="form-control" name="data" ng-keydown="($event.keyCode == 13 || $event.keyCode == 9) && addOptionField()" ng-keydown="($event.keyCode == 8) && removeOptionField(option.id, optV)" placeholder="Option...">' +
+						'<span class="input-group-addon danger"><span class="glyphicon glyphicon-adjust"></span></span>' +
+					'</div>'+
+				'</div>'
 			
 			if(tp=='question'){
 				template = questionTemplate;
@@ -12,8 +23,7 @@ angular.module('qPollOptionDir', [])
 				template = optionTemplate;
 			}
 			return template;
-		}	
-
+		}
 		var linker = function(scope, element, attrs, ngModel){
 		    element.html(getTemplate(scope.option.id)).show();
 		    $compile(element.contents())(scope);	

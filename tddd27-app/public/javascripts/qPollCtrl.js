@@ -1,5 +1,4 @@
-app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($scope, $document, $http, $state){
-	//$scope.optionsElements = $document[0].getElementById('optionForm');
+app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($scope, $document, $http, $state){	
 	$scope.optionElements = [{id: 'question'}, {id: 'option'}];		
 	$scope.optionData = [];
 	$scope.dataListLength = 2;
@@ -37,43 +36,24 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 			}
 		}
 		$scope.optionData = qPollData;
-		$http({
-		url : '/qPoll',
-		method : 'POST',
-	 	headers : {'Content-Type': 'application/json'},
-		data : JSON.stringify(qPollData)
-	})	.then(function successCallBack(res){
-		console.log(JSON.stringify(res.data));			
-		$scope.goToQPollView(res.data.data, res.data._id);						
-		},
-		function errorCallBack(res){
-			console.log("Failure: " + res.data);
-			console.log(res.status);
-			console.log(res.statusText);
-			console.log(res.headers());
-	});
 
-
-		
-/*
-
-		console.log("data at sendQPollData: " + JSON.stringify(qPollData));
-		$http({
+		if($scope.optionData.length>1){
+			$http({
 			url : '/qPoll',
 			method : 'POST',
 		 	headers : {'Content-Type': 'application/json'},
 			data : JSON.stringify(qPollData)
-		})	.then(function successCallBack(res){
-			console.log("res.data.id at qpollctrl: " + res.data._id);
-			console.log("res.data.id at qpollctrl: " + JSON.stringify(res.data));					
-			$scope.goToQPollView(res.data);							
+			})	.then(function successCallBack(res){				
+			$scope.goToQPollView(res.data.data, res.data._id);						
 			},
 			function errorCallBack(res){
 				console.log("Failure: " + res.data);
 				console.log(res.status);
 				console.log(res.statusText);
 				console.log(res.headers());
-		});*/
+			});
+		}
+
 	};
 
 }]);
