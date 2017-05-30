@@ -47,10 +47,6 @@ app.controller('qPollCtrl',['$scope', '$document', '$http', '$state', function($
 			$scope.goToQPollView(res.data.data, res.data._id);						
 			},
 			function errorCallBack(res){
-				console.log("Failure: " + res.data);
-				console.log(res.status);
-				console.log(res.statusText);
-				console.log(res.headers());
 			});
 		}
 

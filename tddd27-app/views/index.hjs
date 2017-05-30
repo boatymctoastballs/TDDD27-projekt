@@ -23,13 +23,11 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>   
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
   
-
-  <script src="http://connect.facebook.net/en_US/all.js"></script>
   
   <script src="/javascripts/Chart.min.js"></script>
   <script src="/javascripts/angular-chart.min.js"></script>
 
-  <!--Controllers-->>
+  <!--Controllers-->
   <script type="text/javascript" src="/javascripts/main.js"></script> 
   <script type="text/javascript" src="/javascripts/homeCtrl.js"></script>  
   <script type="text/javascript" src="/javascripts/navbarCtrl.js"></script>
